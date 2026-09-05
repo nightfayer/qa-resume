@@ -391,18 +391,31 @@ body {
 }
 
 .logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: 1.25rem;
   font-weight: 700;
+  line-height: 1;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.9;
 }
 
 .logo-bracket {
   color: var(--accent-primary);
+  font-weight: 700;
+  padding: 0 0.05rem;
+}
+
+.logo-text {
+  color: var(--text-primary);
+  padding: 0 0.15rem;
 }
 
 .status-indicator {
@@ -411,9 +424,10 @@ body {
   height: 8px;
   background-color: var(--accent-primary);
   border-radius: 50%;
-  margin-left: 0.4rem;
+  margin-left: 0.5rem;
   box-shadow: 0 0 10px var(--accent-primary);
   animation: pulseStatus 2s infinite;
+  vertical-align: middle;
 }
 
 @keyframes pulseStatus {

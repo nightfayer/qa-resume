@@ -68,21 +68,3 @@ npx serve .
 
 ---
 
-## 🌐 Как бесплатно опубликовать на GitHub Pages (за 2 минуты)
-
-1. Создайте новый репозиторий на вашем GitHub ([github.com/nightfayer](https://github.com/nightfayer)), например, `resume` или `qa-portfolio`.
-2. Загрузите файлы `index.html`, `styles.css`, `app.js` и `README.md` в корень репозитория.
-3. Перейдите в **Settings** репозитория &rarr; раздел **Pages** (слева в меню).
-4. В блоке **Build and deployment**:
-   - Source: **Deploy from a branch**
-   - Branch: **main** (или `master`), папка `/ (root)`.
-5. Нажмите **Save**. Через 1-2 минуты ваш сайт будет доступен по адресу:
-   `https://nightfayer.github.io/resume/` (или имя вашего репозитория).
-
----
-
-## 🛠 Настройка и кастомизация под себя
-
-- **Тексты и переводы**: все текстовые блоки на русском и английском находятся в словаре `translations` в начале файла `app.js`.
-- **Проекты и компании**: отредактируйте даты и описания обязанностей в блоке `<section class="experience-section">` в файле `index.html`.
-- **Фотография / Аватар**: если захотите добавить личное фото, добавьте тег `<img>` в секцию `hero-visual` файла `index.html`.

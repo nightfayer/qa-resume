@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Максим | QA Manual Engineer — Резюме & Портфолио</title>
+  <meta name="description" content="Резюме и портфолио QA Manual Engineer: функциональное, интеграционное, регрессионное тестирование, REST API, Postman, DevTools, SQL.">
+  <meta property="og:title" content="Максим | QA Manual Engineer">
+  <meta property="og:description" content="Инженер по ручному тестированию ПО. Гарантия качества, поиск багов до релиза, API, SQL, Web & Mobile.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Gradients & Constellation Canvas -->
+  <div class="bg-decoration">
+    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+    <div class="bg-grid-overlay"></div>
+    <div class="glow-sphere glow-1"></div>
+    <div class="glow-sphere glow-2"></div>
+    <div class="glow-sphere glow-3"></div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#hero" class="logo">
+        <span class="logo-bracket">&lt;</span>
+        <span class="logo-text">QA.Max</span>
+        <span class="logo-bracket">/&gt;</span>
+        <span class="status-indicator" title="Открыт к предложениям"></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#skills" class="nav-link" data-i18n="nav_skills">Навыки</a>
+        <a href="#artifacts" class="nav-link" data-i18n="nav_artifacts">Артефакты QA</a>
+        <a href="#experience" class="nav-link" data-i18n="nav_experience">Опыт & Кейсы</a>
+        <a href="#process" class="nav-link" data-i18n="nav_process">Подход к QA</a>
+        <a href="#contacts" class="nav-link" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switch">
+          <button id="langRu" class="lang-btn active" type="button" aria-label="Русский">RU</button>
+          <span class="lang-divider">/</span>
+          <button id="langEn" class="lang-btn" type="button" aria-label="English">EN</button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="theme-toggle" type="button" title="Переключить тему" aria-label="Переключить тему">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="5" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Print CV Button -->
+        <button id="printBtn" class="btn btn-outline btn-sm print-hide-btn" type="button" title="Распечатать или сохранить резюме в PDF">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9V2h12v7"></path>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span data-i18n="btn_pdf">PDF CV</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span data-i18n="hero_status">Открыт к предложениям &bull; QA Engineer</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span data-i18n="hero_greeting">Привет, я</span>
+            <span class="gradient-text" data-i18n="hero_name">Максим</span>
+          </h1>
+          <h2 class="hero-subtitle" data-i18n="hero_subtitle">
+            <span class="role-highlight">QA Manual Engineer</span>
+            <span class="role-tag">&bull; Quality Assurance Specialist</span>
+          </h2>
+
+          <p class="hero-desc" data-i18n="hero_desc">
+            Инженер по ручному тестированию с фокусом на веб-сервисах, мобильных приложениях и REST API. Нахожу дефекты до того, как они дойдут до пользователей, пишу прозрачную тестовую документацию (Test Plan, Test Cases, Checklists, Bug Reports) и помогаю команде выпускать надёжный продукт без стресса в релизные дни.
+          </p>
+
+          <!-- Contact / CTA Pills -->
+          <div class="hero-actions">
+            <a href="https://t.me/dobriyakk" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-telegram">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.196 1.006.128.832.926z"/>
+              </svg>
+              <span>Telegram: @dobriyakk</span>
+            </a>
+
+            <button type="button" class="btn btn-secondary copy-btn" data-copy="sokomaksim54@gmail.com" title="Нажмите, чтобы скопировать почту">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span class="btn-label">sokomaksim54@gmail.com</span>
+              <span class="copy-badge" data-i18n="copy_tooltip">Копировать</span>
+            </button>
+
+            <a href="https://github.com/nightfayer" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>github.com/nightfayer</span>
+            </a>
+
+            <button type="button" class="btn btn-hero-runner" id="heroRunTestsBtn" title="Запустить симуляцию автотестов сайта прямо сейчас">
+              <span class="pulse-icon">▶</span>
+              <span data-i18n="btn_run_tests_hero">Запустить Live-автотесты сайта</span>
+            </button>
+          </div>
+
+          <!-- Quick Stats Grid -->
+          <div class="stats-strip">
+            <div class="stat-card">
+              <span class="stat-number">100%</span>
+              <span class="stat-label" data-i18n="stat_1">Тест-покрытие требований</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">REST & SQL</span>
+              <span class="stat-label" data-i18n="stat_2">Глубокое тестирование бэкенда</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">STLC / ISTQB</span>
+              <span class="stat-label" data-i18n="stat_3">Академическая база & практики</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">0</span>
+              <span class="stat-label" data-i18n="stat_4">Критичных багов на проде</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Graphic / Quality Mindset Card -->
+        <div class="hero-visual">
+          <!-- Profile Photo Card -->
+          <div class="hero-profile-card">
+            <div class="profile-photo-wrapper">
+              <img src="assets/photo.png" alt="Максим — QA Manual Engineer" class="profile-photo" loading="eager">
+              <div class="photo-overlay-badge">
+                <span class="pulse-dot"></span>
+                <span data-i18n="hero_status_short">Открыт к предложениям</span>
+              </div>
+              <div class="photo-name-tag">
+                <span class="photo-name" data-i18n="photo_name">Максим</span>
+                <span class="photo-role">QA Manual Engineer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="terminal-title">qa-terminal &mdash; test-run-v2.1.sh</div>
+            </div>
+            <div class="terminal-action-strip">
+              <button class="term-banner-btn" id="runSmokeBtn" title="Запустить автоматические Smoke-тесты сайта">
+                <span class="btn-play-badge">▶</span>
+                <strong data-i18n="btn_run_tests">Запустить Smoke-автотесты сайта</strong>
+              </button>
+              <span class="terminal-subhint" data-i18n="term_hint">Кликните, чтобы увидеть симуляцию проверки сайта</span>
+            </div>
+            <div class="terminal-body">
+              <p class="term-line"><span class="term-prompt">$</span> qa-verify --scope="Release 2.4.0"</p>
+              <p class="term-line term-info">&rarr; Initializing test suite: Smoke + API + Regression</p>
+              <p class="term-line term-success">&check; Boundary Value Analysis: 24/24 PASS</p>
+              <p class="term-line term-success">&check; Equivalence Partitioning: 36/36 PASS</p>
+              <p class="term-line term-success">&check; REST API Endpoints (Postman): 200 OK (latency &lt; 180ms)</p>
+              <p class="term-line term-success">&check; SQL DB Integrity Check: PASS (0 orphan records)</p>
+              <p class="term-line term-warning">&excl; Defect Found: #BUG-142 (Severity: Major | Status: Logged)</p>
+              <p class="term-line term-highlight">&check; Release Verdict: READY FOR PRODUCTION (Risk: LOW)</p>
+            </div>
+            <div class="terminal-footer">
+              <div class="tech-tag">Postman</div>
+              <div class="tech-tag">Chrome DevTools</div>
+              <div class="tech-tag">Charles Proxy</div>
+              <div class="tech-tag">PostgreSQL</div>
+              <div class="tech-tag">Jira / Test IT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Matrix Section -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag" data-i18n="skills_tag">Ключевой стек</span>
+          <h2 class="section-title" data-i18n="skills_title">Технические и практические навыки</h2>
+          <p class="section-desc" data-i18n="skills_desc">Инструменты, технологии и методологии, которые я ежедневно применяю в работе для обеспечения качества.</p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Skill Category 1 -->
+          <div class="skill-category-card">
+            <div class="category-icon icon-testing">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="skill_cat_1_title">Виды & Методы тестирования</h3>
+            <ul class="skill-list" data-i18n="skill_cat_1_list">
+              <li><strong>Функциональное тестирование</strong> (Functional & Non-functional)</li>
+              <li><strong>Регрессионное, Smoke и Sanity</strong> тестирование</li>
+              <li><strong>Тестирование интеграций</strong> (Client-Server, 3rd party APIs)</li>
+              <li><strong>UI / UX и Кроссбраузерное</strong> (Chrome, Firefox, Safari, Edge)</li>
+              <li><strong>Кроссплатформенное мобильное</strong> (iOS, Android, эмуляторы, реальные девайсы)</li>
+              <li><strong>Исследовательское тестирование</strong> (Exploratory Testing & Tour testing)</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 2 -->
+          <div class="skill-category-card">
+            <div class="category-icon icon-tools">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="skill_cat_2_title">Инструменты тестировщика</h3>
+            <ul class="skill-list" data-i18n="skill_cat_2_list">
+              <li><strong>Postman:</strong> коллекции, переменные окружения, scripts/tests (pm.expect), mock-серверы</li>
+              <li><strong>Chrome DevTools:</strong> вкладки Network, Console, Application, LocalStorage, Cookie, throttling 3G/Offline</li>
+              <li><strong>Charles Proxy / Fiddler:</strong> перехват трафика, Breakpoints, Rewrite, Map Local/Remote, SSL-сертификаты</li>
+              <li><strong>Swagger / OpenAPI:</strong> исследование документации эндпоинтов, валидация схем JSON</li>
+              <li><strong>DBeaver / DataGrip:</strong> работа с базами данных, составление тестовых выборок</li>
+              <li><strong>Основы автоматизации (AQA Basics):</strong> базовые автотесты на JavaScript / Playwright, запуск коллекций Postman через Newman CLI</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 3 -->
+          <div class="skill-category-card">
+            <div class="category-icon icon-backend">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="skill_cat_3_title">Базы данных, API & Сети</h3>
+            <ul class="skill-list" data-i18n="skill_cat_3_list">
+              <li><strong>SQL (PostgreSQL / MySQL):</strong> SELECT, WHERE, JOIN (INNER, LEFT, RIGHT), GROUP BY, HAVING, ORDER BY, агрегатные функции, INSERT/UPDATE тестовых данных</li>
+              <li><strong>REST API:</strong> HTTP-методы (GET, POST, PUT, PATCH, DELETE), статус-коды (2xx, 3xx, 4xx, 5xx), структура Headers, Payload (JSON/XML)</li>
+              <li><strong>Базовые команды терминала:</strong> Bash, просмотр серверных логов (tail -f, grep), Git (clone, checkout, pull)</li>
+              <li><strong>Архитектура:</strong> микросервисы, вебхуки, базовые понятия очередей (Kafka / RabbitMQ)</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 4 -->
+          <div class="skill-category-card">
+            <div class="category-icon icon-process">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="skill_cat_4_title">Тест-дизайн & Процессы</h3>
+            <ul class="skill-list" data-i18n="skill_cat_4_list">
+              <li><strong>Техники тест-дизайна:</strong> Эквивалентное разделение (EP), Граничные значения (BVA), Таблицы решений, Диаграммы переходов состояний, Предугадывание ошибок</li>
+              <li><strong>Тестовая документация:</strong> Test Plan, Чек-листы, Тест-кейсы, Баг-репорты, Traceability Matrix, Test Summary Report</li>
+              <li><strong>Таск-трекеры & TMS:</strong> Jira, Test IT, TestRail, YouTrack, Confluence, Kaiten</li>
+              <li><strong>Методологии:</strong> Agile, Scrum (Sprint Planning, Daily, Retro), Kanban, понимание фаз SDLC / STLC</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Test Artifacts Showcase -->
+    <section class="section artifacts-section" id="artifacts">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag" data-i18n="artifacts_tag">Портфолио артефактов</span>
+          <h2 class="section-title" data-i18n="artifacts_title">Примеры реальной тестовой документации</h2>
+          <p class="section-desc" data-i18n="artifacts_desc">
+            Кликабельные образцы артефактов: посмотрите, как оформлены мои баг-репорты, тест-кейсы, тесты API в Postman и SQL-проверки.
+          </p>
+        </div>
+
+        <!-- Artifact Navigation Tabs -->
+        <div class="artifact-tabs">
+          <button class="artifact-tab-btn active" data-tab="bug-report">
+            <span class="tab-badge bug-badge">Bug Report</span>
+            <span data-i18n="tab_bug">Баг-репорт (Jira format)</span>
+          </button>
+          <button class="artifact-tab-btn" data-tab="test-case">
+            <span class="tab-badge tc-badge">Test Case</span>
+            <span data-i18n="tab_tc">Тест-кейс & BVA</span>
+          </button>
+          <button class="artifact-tab-btn" data-tab="api-test">
+            <span class="tab-badge api-badge">REST API</span>
+            <span data-i18n="tab_api">Коллекция Postman</span>
+          </button>
+          <button class="artifact-tab-btn" data-tab="sql-verify">
+            <span class="tab-badge sql-badge">SQL</span>
+            <span data-i18n="tab_sql">Верификация в БД</span>
+          </button>
+          <button class="artifact-tab-btn" data-tab="aqa-test">
+            <span class="tab-badge aqa-badge">Playwright</span>
+            <span data-i18n="tab_aqa">Автотест (E2E)</span>
+          </button>
+        </div>
+
+        <!-- Tab Content 1: Bug Report -->
+        <div class="tab-pane active" id="tab-bug-report">
+          <div class="artifact-viewer card">
+            <div class="artifact-toolbar">
+              <div class="ticket-id">TASK-4082 &bull; PROD-DEFECT</div>
+              <div class="ticket-badges">
+                <span class="badge badge-critical">Severity: Critical</span>
+                <span class="badge badge-high">Priority: High</span>
+                <span class="badge badge-status">Status: Verified</span>
+              </div>
+            </div>
+
+            <div class="artifact-body">
+              <h3 class="ticket-summary" data-i18n="bug_summary">
+                [Checkout] 500 Internal Server Error при применении промокода в корзине со скидкой 100%
+              </h3>
+
+              <div class="ticket-meta-grid">
+                <div class="meta-item">
+                  <span class="meta-label" data-i18n="lbl_env">Окружение:</span>
+                  <span class="meta-value" data-i18n="bug_env_val">Staging v2.3.1 (Chrome 128, macOS 14.5 / Windows 11)</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label" data-i18n="lbl_component">Компонент:</span>
+                  <span class="meta-value" data-i18n="bug_comp_val">Billing & Checkout Service / Cart API</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label" data-i18n="lbl_author">Автор:</span>
+                  <span class="meta-value" data-i18n="bug_author_val">Максим (QA Engineer)</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label" data-i18n="lbl_repro">Воспроизводимость:</span>
+                  <span class="meta-value text-warning" data-i18n="bug_repro_val">100% (5/5 попыток)</span>
+                </div>
+              </div>
+
+              <div class="ticket-section">
+                <h4 data-i18n="bug_pre_h">1. Предусловия (Preconditions):</h4>
+                <ol data-i18n="bug_pre_list">
+                  <li>Пользователь авторизован в системе под ролью `STANDARD_USER`.</li>
+                  <li>В корзину добавлен 1 товар стоимостью 1 500 RUB (ID: 98421).</li>
+                  <li>В базе данных активен промокод `FULLFREE` (скидка 100%, тип: fixed_percent).</li>
+                </ol>
+              </div>
+
+              <div class="ticket-section">
+                <h4 data-i18n="bug_steps_h">2. Шаги воспроизведения (Steps to Reproduce):</h4>
+                <ol data-i18n="bug_steps_list">
+                  <li>Перейти на страницу корзины: <code>https://app.example.com/cart</code>.</li>
+                  <li>В поле ввода промокода ввести: <code>FULLFREE</code>.</li>
+                  <li>Нажать кнопку «Применить».</li>
+                  <li>Нажать кнопку «Перейти к оформлению заказа».</li>
+                </ol>
+              </div>
+
+              <div class="ticket-columns">
+                <div class="ticket-col result-expected">
+                  <div class="result-title" data-i18n="bug_exp_title">&check; Ожидаемый результат (Expected):</div>
+                  <p data-i18n="bug_exp_desc">
+                    Промокод успешно применен. Сумма заказа пересчитана до 0 RUB. Кнопка оплаты меняется на «Завершить оформление без оплаты». Заказ успешно создается с кодом 201 Created и статусом `FREE_ORDER`.
+                  </p>
+                </div>
+                <div class="ticket-col result-actual">
+                  <div class="result-title" data-i18n="bug_act_title">&times; Фактический результат (Actual):</div>
+                  <p data-i18n="bug_act_desc">
+                    После нажатия всплывает тост «Ошибка сервера». Запрос <code>POST /api/v1/orders</code> падает с кодом <strong>500 Internal Server Error</strong>. В логах: <code>PaymentGatewayException: Amount must be greater than zero</code>. Пользователь заблокирован на шаге оформления.
+                  </p>
+                </div>
+              </div>
+
+              <div class="ticket-section">
+                <h4 data-i18n="bug_logs_h">3. Логи & Доказательства (Logs & Payload):</h4>
+                <pre class="code-block"><code>// Request: POST https://api.example.com/v1/orders
+Headers: { "Authorization": "Bearer eyJhbGci...", "Content-Type": "application/json" }
+Body: { "cart_id": "c9842", "promo_code": "FULLFREE", "total_amount": 0.00 }
+
+// Response: 500 Internal Server Error
+{
+  "timestamp": "2026-09-06T10:14:22Z",
+  "status": 500,
+  "error": "PaymentGatewayException",
+  "message": "Transaction failed: amount=0.00 is rejected by merchant API. Bypass flag missing."
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content 2: Test Case -->
+        <div class="tab-pane" id="tab-test-case">
+          <div class="artifact-viewer card">
+            <div class="artifact-toolbar">
+              <div class="ticket-id">TC-AUTH-014 &bull; BOUNDARY VALUE ANALYSIS</div>
+              <div class="ticket-badges">
+                <span class="badge badge-medium">Type: Positive & Negative</span>
+                <span class="badge badge-high">Priority: High</span>
+              </div>
+            </div>
+
+            <div class="artifact-body">
+              <h3 class="ticket-summary" data-i18n="tc_summary">
+                Валидация длины поля «Пароль» при регистрации (Классы эквивалентности и граничные значения)
+              </h3>
+              <p class="ticket-desc" data-i18n="tc_desc">
+                <strong>Требования спецификации (SRS v1.4):</strong> Пароль должен содержать от 8 до 32 символов включительно, минимум одну заглавную букву, одну цифру и один специальный знак.
+              </p>
+
+              <div class="table-responsive">
+                <table class="test-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Тестовое значение</th>
+                      <th>Длина</th>
+                      <th>Тип теста</th>
+                      <th>Техника</th>
+                      <th>Ожидаемый ответ</th>
+                      <th>Статус</th>
+                    </tr>
+                  </thead>
+                  <tbody data-i18n="tc_tbody">
+                    <tr>
+                      <td>1</td>
+                      <td><code>Passw1!</code></td>
+                      <td>7 символов</td>
+                      <td><span class="tag tag-neg">Negative</span></td>
+                      <td>BVA (Нижняя граница - 1)</td>
+                      <td>Ошибка: «Минимальная длина пароля — 8 символов»</td>
+                      <td><span class="status-pass">PASSED</span></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><code>Password1!</code></td>
+                      <td>8 символов</td>
+                      <td><span class="tag tag-pos">Positive</span></td>
+                      <td>BVA (Нижняя граница)</td>
+                      <td>Валидация пройдена, кнопка активна</td>
+                      <td><span class="status-pass">PASSED</span></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td><code>NormalValidPass123!</code></td>
+                      <td>19 символов</td>
+                      <td><span class="tag tag-pos">Positive</span></td>
+                      <td>Equivalence Partitioning</td>
+                      <td>Валидация пройдена, индикатор надежности: Сильный</td>
+                      <td><span class="status-pass">PASSED</span></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td><code>Pass1!A12345678901234567890123456</code></td>
+                      <td>32 символа</td>
+                      <td><span class="tag tag-pos">Positive</span></td>
+                      <td>BVA (Верхняя граница)</td>
+                      <td>Валидация пройдена, регистрация успешна</td>
+                      <td><span class="status-pass">PASSED</span></td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td><code>Pass1!A123456789012345678901234567</code></td>
+                      <td>33 символа</td>
+                      <td><span class="tag tag-neg">Negative</span></td>
+                      <td>BVA (Верхняя граница + 1)</td>
+                      <td>Ошибка: «Максимальная длина пароля — 32 символа»</td>
+                      <td><span class="status-pass">PASSED</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content 3: REST API (Postman) -->
+        <div class="tab-pane" id="tab-api-test">
+          <div class="artifact-viewer card">
+            <div class="artifact-toolbar">
+              <div class="ticket-id">POSTMAN COLLECTION &bull; E-COMMERCE ORDERS API</div>
+              <div class="ticket-badges">
+                <span class="badge badge-status">Automated Tests Script</span>
+                <span class="badge badge-medium">Environment: QA-Cluster</span>
+              </div>
+            </div>
+
+            <div class="artifact-body">
+              <h3 class="ticket-summary" data-i18n="api_summary">
+                Тестирование эндпоинта <code>POST /api/v2/orders/create</code> с авто-ассертами
+              </h3>
+
+              <div class="api-request-box">
+                <div class="api-method-row">
+                  <span class="http-method post">POST</span>
+                  <span class="http-url">https://qa-api.shop.dev/api/v2/orders/create</span>
+                </div>
+
+                <div class="code-tabs">
+                  <div class="code-tab-header">
+                    <span>Headers & Request Payload</span>
+                  </div>
+                  <pre class="code-block"><code>{
+  "customerId": "{{userId}}",
+  "items": [
+    { "productId": "prod_4892", "quantity": 2, "unitPrice": 450.00 }
+  ],
+  "deliveryAddress": {
+    "city": "Moscow",
+    "street": "Tverskaya 12",
+    "postalCode": "125009"
+  },
+  "paymentMethod": "CARD_ONLINE"
+}</code></pre>
+                </div>
+
+                <div class="code-tabs" style="margin-top: 1rem;">
+                  <div class="code-tab-header">
+                    <span>Postman Tests Tab (JS Assertions & Data Propagation)</span>
+                  </div>
+                  <pre class="code-block"><code>// 1. Проверка HTTP статус-кода
+pm.test("Status code is 201 Created", function () {
+    pm.response.to.have.status(201);
+});
+
+// 2. Валидация структуры ответа и времени отклика
+pm.test("Response time is under 300ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+
+// 3. Проверка схемы и корректности подсчета суммы
+pm.test("Order total calculated correctly", function () {
+    const json = pm.response.json();
+    pm.expect(json).to.have.property("orderId");
+    pm.expect(json.status).to.eql("PENDING_PAYMENT");
+    pm.expect(json.totalAmount).to.eql(900.00);
+    
+    // Сохранение ID созданного заказа в переменную для последующего DELETE / GET
+    pm.environment.set("createdOrderId", json.orderId);
+});</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content 4: SQL Database Verification -->
+        <div class="tab-pane" id="tab-sql-verify">
+          <div class="artifact-viewer card">
+            <div class="artifact-toolbar">
+              <div class="ticket-id">SQL TEST SCRIPTS &bull; POSTGRESQL INTEGRITY</div>
+              <div class="ticket-badges">
+                <span class="badge badge-status">Data Verification</span>
+                <span class="badge badge-medium">Read-only & Test data cleanup</span>
+              </div>
+            </div>
+
+            <div class="artifact-body">
+              <h3 class="ticket-summary" data-i18n="sql_summary">
+                Проверка консистентности транзакций и статусов в БД после оформления заказа через UI/API
+              </h3>
+
+              <div class="code-tabs">
+                <div class="code-tab-header">
+                  <span>SQL Query: Комплексная проверка заказа с JOIN по связанным таблицам</span>
+                </div>
+                <pre class="code-block"><code>-- 1. Проверка создания заказа, пользователя, статуса оплаты и связки с промокодом
+SELECT 
+    o.id AS order_id,
+    o.status AS order_status,
+    o.total_amount,
+    u.email AS customer_email,
+    p.code AS promo_applied,
+    pay.status AS payment_status,
+    pay.transaction_id
+FROM orders o
+INNER JOIN users u ON o.user_id = u.id
+LEFT JOIN promo_codes p ON o.promo_id = p.id
+LEFT JOIN payments pay ON pay.order_id = o.id
+WHERE o.id = 'ord_98124'
+ORDER BY o.created_at DESC;
+
+-- 2. Проверка остатка товара на складе после успешного бронирования (Race Condition check)
+SELECT product_id, stock_quantity, reserved_quantity
+FROM warehouse_stocks
+WHERE product_id = 'prod_4892';</code></pre>
+              </div>
+
+              <div class="table-responsive" style="margin-top: 1.5rem;">
+                <div class="table-title" data-i18n="sql_table_title">Результат выполнения выборки в DBeaver:</div>
+                <table class="test-table">
+                  <thead>
+                    <tr>
+                      <th>order_id</th>
+                      <th>order_status</th>
+                      <th>total_amount</th>
+                      <th>customer_email</th>
+                      <th>promo_applied</th>
+                      <th>payment_status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>ord_98124</code></td>
+                      <td><span class="tag tag-pos">PAID</span></td>
+                      <td>900.00 RUB</td>
+                      <td>user_test_42@example.com</td>
+                      <td>SPRING2026</td>
+                      <td><span class="status-pass">SUCCESS</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content 5: Automated E2E Test (Playwright) -->
+        <div class="tab-pane" id="tab-aqa-test">
+          <div class="artifact-viewer card">
+            <div class="artifact-toolbar">
+              <div class="ticket-id">E2E-AUTOMATION &bull; PLAYWRIGHT + JAVASCRIPT</div>
+              <div class="ticket-badges">
+                <span class="badge badge-status">CI/CD Ready</span>
+                <span class="badge badge-medium">Chromium &bull; WebKit &bull; Firefox</span>
+              </div>
+            </div>
+
+            <div class="artifact-body">
+              <h3 class="ticket-summary" data-i18n="aqa_summary">
+                Автотест сценария оформления заказа с применением скидочного промокода 100% (E2E Smoke)
+              </h3>
+              <p class="ticket-desc" data-i18n="aqa_desc">
+                Скрипт проверяет предотвращение регрессионного дефекта <code>#TASK-4082</code>: авторизация, добавление товара, применение промокода, перехват сетевого запроса API и проверка экрана успеха.
+              </p>
+
+              <div class="code-tabs">
+                <div class="code-tab-header">
+                  <span>tests/e2e/checkout-promo.spec.js</span>
+                </div>
+                <pre class="code-block"><code>import { test, expect } from '@playwright/test';
+
+test.describe('Checkout Flow & Promo Code Verification', () => {
+  test('should successfully checkout with 100% discount promo code without 500 error', async ({ page }) => {
+    // 1. Авторизация тестовым пользователем
+    await page.goto('/login');
+    await page.fill('input[name="email"]', 'qa_auto_user@example.com');
+    await page.fill('input[name="password"]', 'StrongPass123!');
+    await page.click('button[type="submit"]');
+    await expect(page.locator('.user-avatar')).toBeVisible();
+
+    // 2. Добавление тестового товара в корзину
+    await page.goto('/catalog/item-98421');
+    await page.click('button[data-testid="add-to-cart"]');
+    await expect(page.locator('.cart-counter')).toHaveText('1');
+
+    // 3. Переход в корзину и ввод промокода
+    await page.goto('/cart');
+    await page.fill('input[data-testid="promo-input"]', 'FULLFREE');
+    await page.click('button[data-testid="apply-promo-btn"]');
+
+    // 4. Ожидание успешного применения и пересчета суммы
+    const totalAmount = page.locator('[data-testid="cart-total-amount"]');
+    await expect(totalAmount).toHaveText('0.00 RUB');
+
+    // 5. Перехват POST /api/v1/orders и верификация ответа сервера 201 Created
+    const [response] = await Promise.all([
+      page.waitForResponse(resp => resp.url().includes('/api/v1/orders') && resp.status() === 201),
+      page.click('button[data-testid="submit-order-btn"]')
+    ]);
+
+    // 6. Проверка UI экрана успешного заказа
+    await expect(page.locator('.order-success-title')).toContainText('Заказ успешно оформлен');
+  });
+});</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Projects Section -->
+    <section class="section experience-section" id="experience">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag" data-i18n="exp_tag">Опыт & Проекты</span>
+          <h2 class="section-title" data-i18n="exp_title">Проектный опыт и практические кейсы</h2>
+          <p class="section-desc" data-i18n="exp_desc">Примеры задач, зон ответственности и достигнутых результатов в проектах.</p>
+        </div>
+
+        <div class="timeline">
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card card">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-role" data-i18n="exp_job1_role">QA Manual Engineer</h3>
+                  <div class="timeline-company">E-Commerce & Retail Web / Mobile Services</div>
+                </div>
+                <div class="timeline-period" data-i18n="exp_job1_period">2024 &mdash; Настоящее время</div>
+              </div>
+
+              <div class="timeline-body">
+                <p class="timeline-summary" data-i18n="exp_job1_summary">
+                  Обеспечение качества крупного интернет-магазина (Web SPA + Mobile Web + REST API микросервисы).
+                </p>
+                <ul class="timeline-bullets" data-i18n="exp_job1_bullets">
+                  <li><strong>Проведение полного цикла тестирования:</strong> функциональное, дымовое, регрессионное и санитарное тестирование перед каждым релизом (2 релиза в неделю).</li>
+                  <li><strong>Тестирование REST API:</strong> составление и поддержка более 150 тест-кейсов в Postman с автоматическими JS-проверками статус-кодов, схем и таймингов.</li>
+                  <li><strong>Базы данных:</strong> составление SQL-запросов (PostgreSQL) для верификации записи заказов, списания бонусов и синхронизации статусов складских остатков.</li>
+                  <li><strong>Оптимизация регресса:</strong> переработал структуру чек-листов в Test IT, сократив время регрессионного прогона с 14 до 8 часов без потери качества.</li>
+                  <li><strong>Работа с багами:</strong> заведение исчерпывающих дефектов в Jira с логами DevTools, Charles и понятными шагами воспроизведения. 95% багов брались в работу без дополнительных уточнений.</li>
+                </ul>
+
+                <div class="timeline-tags">
+                  <span>Postman</span>
+                  <span>Chrome DevTools</span>
+                  <span>Charles Proxy</span>
+                  <span>PostgreSQL</span>
+                  <span>Jira</span>
+                  <span>Test IT</span>
+                  <span>Figma</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card card">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-role" data-i18n="exp_job2_role">Junior QA Engineer / Тестировщик ПО</h3>
+                  <div class="timeline-company">Fintech & SaaS B2B Platform</div>
+                </div>
+                <div class="timeline-period" data-i18n="exp_job2_period">2023 &mdash; 2024</div>
+              </div>
+
+              <div class="timeline-body">
+                <p class="timeline-summary" data-i18n="exp_job2_summary">
+                  Тестирование личного кабинета юридических лиц, модулей выставления счетов и интеграций с платежными шлюзами.
+                </p>
+                <ul class="timeline-bullets" data-i18n="exp_job2_bullets">
+                  <li><strong>Тестирование требований:</strong> участие в грумингах, выявление противоречий и белых пятен в ТЗ до передачи задачи разработчикам.</li>
+                  <li><strong>Кроссбраузерное и адаптивное тестирование:</strong> проверка корректности отображения и логики интерфейсов на десктопах и мобильных экранах.</li>
+                  <li><strong>Клиент-серверное взаимодействие:</strong> эмуляция ошибок сервера (400, 401, 403, 404, 500, 503) через Breakpoints и Map Local в Charles Proxy для проверки отказоустойчивости фронтенда.</li>
+                  <li><strong>Тест-дизайн:</strong> создание матрицы покрытия и наборов тест-кейсов по техникам BVA, EP и таблиц решений.</li>
+                </ul>
+
+                <div class="timeline-tags">
+                  <span>REST API</span>
+                  <span>Swagger</span>
+                  <span>Charles Proxy</span>
+                  <span>MySQL</span>
+                  <span>YouTrack</span>
+                  <span>Confluence</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QA Philosophy & Work Process Section -->
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag" data-i18n="process_tag">Качество как процесс</span>
+          <h2 class="section-title" data-i18n="process_title">Мой подход к тестированию</h2>
+          <p class="section-desc" data-i18n="process_desc">
+            Тестирование — это не просто поиск ошибок в конце разработки, а системная защита ценности продукта на каждом этапе жизненного цикла (STLC).
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-card">
+            <div class="process-step">01</div>
+            <h3 data-i18n="proc_1_title">Анализ требований (Shift-Left)</h3>
+            <p data-i18n="proc_1_desc">
+              Ищу логические несоответствия и пограничные случаи еще на стадии макетов в Figma и текста в Confluence. Баг, найденный в ТЗ, обходится в 10 раз дешевле бага в коде.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">02</div>
+            <h3 data-i18n="proc_2_title">Тест-дизайн & Планирование</h3>
+            <p data-i18n="proc_2_desc">
+              Применяю техники BVA, классы эквивалентности и анализ переходов состояний. Создаю ясные чек-листы, которые понятны и тестировщикам, и разработчикам.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">03</div>
+            <h3 data-i18n="proc_3_title">Глубокое тестирование (UI + API + DB)</h3>
+            <p data-i18n="proc_3_desc">
+              Не ограничиваюсь интерфейсом. Всегда проверяю сетевые запросы в DevTools/Charles, ответы API в Postman и фактическое состояние таблиц в SQL.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">04</div>
+            <h3 data-i18n="proc_4_title">Прозрачные баг-репорты & Фидбек</h3>
+            <p data-i18n="proc_4_desc">
+              Пишу репорты так, чтобы разработчик сразу понимал причину ошибки без долгих созвонов: короткая суть, логи, видео/скриншоты и точные данные окружения.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Direct Call to Action -->
+    <section class="section contact-section" id="contacts">
+      <div class="container">
+        <div class="contact-box card">
+          <div class="contact-content text-center">
+            <span class="section-tag" data-i18n="contact_tag">Связь со мной</span>
+            <h2 class="section-title" data-i18n="contact_title">Готов обсудить задачи и присоединиться к команде</h2>
+            <p class="contact-subtitle" data-i18n="contact_subtitle">
+              Ищете внимательного, технически грамотного QA-инженера? Свяжитесь со мной любым удобным способом:
+            </p>
+
+            <div class="contact-links-grid">
+              <!-- Telegram Link -->
+              <a href="https://t.me/dobriyakk" target="_blank" rel="noopener noreferrer" class="contact-card tg-card">
+                <div class="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.196 1.006.128.832.926z"/>
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <div class="contact-type" data-i18n="contact_tg_type">Telegram (Быстрый ответ)</div>
+                  <div class="contact-value">@dobriyakk</div>
+                </div>
+                <span class="contact-arrow">&rarr;</span>
+              </a>
+
+              <!-- Email Link -->
+              <div class="contact-card email-card copy-trigger" data-copy="sokomaksim54@gmail.com">
+                <div class="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <div class="contact-type" data-i18n="contact_email_type">Email (Клик для копирования)</div>
+                  <div class="contact-value">sokomaksim54@gmail.com</div>
+                </div>
+                <span class="contact-arrow copy-badge-inline" data-i18n="copy_click">Скопировать</span>
+              </div>
+
+              <!-- GitHub Link -->
+              <a href="https://github.com/nightfayer" target="_blank" rel="noopener noreferrer" class="contact-card gh-card">
+                <div class="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <div class="contact-type">GitHub Profile</div>
+                  <div class="contact-value">github.com/nightfayer</div>
+                </div>
+                <span class="contact-arrow">&rarr;</span>
+              </a>
+            </div>
+
+            <div class="pdf-export-row">
+              <button type="button" class="btn btn-outline" id="printBottomBtn">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9V2h12v7"></path>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span data-i18n="btn_pdf_full">Распечатать или скачать в PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span data-i18n="footer_text">&copy; 2026 Максим &bull; QA Manual Engineer</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/dobriyakk" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="mailto:sokomaksim54@gmail.com">Email</a>
+        <a href="https://github.com/nightfayer" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification for Copying -->
+  <div id="toast" class="toast" role="alert" aria-live="polite">
+    <span class="toast-icon">&check;</span>
+    <span class="toast-msg">Скопировано в буфер обмена!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

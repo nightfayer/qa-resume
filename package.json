@@ -1,0 +1,21 @@
+{
+  "name": "qa-manual-resume",
+  "version": "1.1.0",
+  "description": "Portfolio and Resume website for QA Manual Engineer with automated smoke tests",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test tests/smoke.test.js",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "qa",
+    "manual-qa",
+    "testing",
+    "portfolio",
+    "resume",
+    "smoke-tests",
+    "playwright"
+  ],
+  "author": "Maxim",
+  "license": "MIT"
+}

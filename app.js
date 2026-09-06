@@ -653,31 +653,25 @@ function initBackgroundCanvas() {
 
   let width = 0;
   let height = 0;
-  let dpr = window.devicePixelRatio || 1;
 
   function resizeCanvas() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2 for mobile battery efficiency
-    width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    width = window.innerWidth || document.documentElement.clientWidth || 1200;
+    height = window.innerHeight || document.documentElement.clientHeight || 800;
     
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
+    // Set internal resolution directly matching CSS pixels for universal 1:1 crisp rendering
+    canvas.width = width;
+    canvas.height = height;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
-    
-    ctx.scale(dpr, dpr);
   }
 
   resizeCanvas();
 
-  // If user explicitly has reduced motion enabled in OS, keep subtle static nodes without CPU render loop
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   // Adaptive particle count based on screen size
   const isMobile = width < 768;
-  const particleCount = isMobile ? 30 : 60;
-  const maxDistance = isMobile ? 95 : 135;
-  const mouseRadius = isMobile ? 100 : 160;
+  const particleCount = isMobile ? 32 : 65;
+  const maxDistance = isMobile ? 100 : 145;
+  const mouseRadius = isMobile ? 120 : 180;
 
   const mouse = {
     x: null,
@@ -704,7 +698,7 @@ function initBackgroundCanvas() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       resizeCanvas();
-    }, 150);
+    }, 100);
   });
 
   class Particle {
@@ -771,9 +765,7 @@ function initBackgroundCanvas() {
 
     // 1. Update and draw nodes
     for (let i = 0; i < particles.length; i++) {
-      if (!prefersReducedMotion) {
-        particles[i].update();
-      }
+      particles[i].update();
       particles[i].draw(isDark ? 'dark' : 'light');
     }
 
@@ -813,9 +805,7 @@ function initBackgroundCanvas() {
       }
     }
 
-    if (!prefersReducedMotion) {
-      animationFrameId = requestAnimationFrame(render);
-    }
+    animationFrameId = requestAnimationFrame(render);
   }
 
   // Handle visibility change so inactive tabs don't waste CPU and restart cleanly when focused
@@ -823,9 +813,7 @@ function initBackgroundCanvas() {
     if (document.hidden) {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     } else {
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
+      animationFrameId = requestAnimationFrame(render);
     }
   });
 

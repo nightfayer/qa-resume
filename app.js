@@ -651,37 +651,60 @@ function initBackgroundCanvas() {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
+  let width = 0;
+  let height = 0;
+  let dpr = window.devicePixelRatio || 1;
 
-  // Check if reduced motion is preferred
+  function resizeCanvas() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2 for mobile battery efficiency
+    width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    
+    ctx.scale(dpr, dpr);
+  }
+
+  resizeCanvas();
+
+  // If user explicitly has reduced motion enabled in OS, keep subtle static nodes without CPU render loop
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) return;
 
   // Adaptive particle count based on screen size
   const isMobile = width < 768;
-  const particleCount = isMobile ? 32 : 65;
-  const maxDistance = isMobile ? 95 : 140;
-  const mouseRadius = isMobile ? 110 : 170;
+  const particleCount = isMobile ? 30 : 60;
+  const maxDistance = isMobile ? 95 : 135;
+  const mouseRadius = isMobile ? 100 : 160;
 
   const mouse = {
     x: null,
     y: null
   };
 
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
+  const updateMouse = (clientX, clientY) => {
+    mouse.x = clientX;
+    mouse.y = clientY;
+  };
 
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+  window.addEventListener('mousemove', (e) => updateMouse(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      updateMouse(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
 
+  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+
+  let resizeTimeout;
   window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      resizeCanvas();
+    }, 150);
   });
 
   class Particle {
@@ -739,7 +762,7 @@ function initBackgroundCanvas() {
 
   const particles = Array.from({ length: particleCount }, () => new Particle());
 
-  let animationFrameId;
+  let animationFrameId = null;
 
   function render() {
     ctx.clearRect(0, 0, width, height);
@@ -748,7 +771,9 @@ function initBackgroundCanvas() {
 
     // 1. Update and draw nodes
     for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
+      if (!prefersReducedMotion) {
+        particles[i].update();
+      }
       particles[i].draw(isDark ? 'dark' : 'light');
     }
 
@@ -788,9 +813,23 @@ function initBackgroundCanvas() {
       }
     }
 
-    animationFrameId = requestAnimationFrame(render);
+    if (!prefersReducedMotion) {
+      animationFrameId = requestAnimationFrame(render);
+    }
   }
+
+  // Handle visibility change so inactive tabs don't waste CPU and restart cleanly when focused
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    } else {
+      if (!prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    }
+  });
 
   render();
 }
+
 

@@ -173,9 +173,8 @@ const translations = {
       <li><strong>Клиент-серверное взаимодействие:</strong> эмуляция ошибок сервера (400, 401, 403, 404, 500, 503) через Breakpoints и Map Local в Charles Proxy для проверки отказоустойчивости фронтенда.</li>
       <li><strong>Тест-дизайн:</strong> создание матрицы покрытия и наборов тест-кейсов по техникам BVA, EP и таблиц решений.</li>
     `,
-    process_tag: "Качество как процесс",
-    process_title: "Мой подход к тестированию",
-    process_desc: "Тестирование — это не просто поиск ошибок в конце разработки, а системная защита ценности продукта на каждом этапе жизненного цикла (STLC)",
+    process_tag: "Процессы",
+    process_title: "Мой подход",
     proc_1_title: "Анализ требований (Shift-Left)",
     proc_1_desc: "Ищу логические несоответствия и пограничные случаи на стадии макетов в Figma и текста в Confluence. Баг, найденный в ТЗ, обходится в 10 раз дешевле бага в коде.",
     proc_2_title: "Тест-дизайн & Планирование",
@@ -361,9 +360,8 @@ const translations = {
       <li><strong>Client-server debugging:</strong> simulated server errors (400, 401, 403, 404, 500, 503) using Breakpoints and Map Local in Charles Proxy to test frontend resilience.</li>
       <li><strong>Test design:</strong> created test coverage matrices and test suites using BVA, Equivalence Partitioning, and Decision Tables.</li>
     `,
-    process_tag: "Quality as a Mindset",
-    process_title: "My Approach to Quality Assurance",
-    process_desc: "Testing is not just hunting bugs at the end of the sprint, but a systematic guardrail protecting product value across all STLC phases",
+    process_tag: "Workflow",
+    process_title: "My Approach",
     proc_1_title: "Requirements Analysis (Shift-Left)",
     proc_1_desc: "Catching ambiguities and edge cases early in Figma mockups and specifications. A bug caught in specs costs 10x less than a bug in production code.",
     proc_2_title: "Test Design & Strategy",

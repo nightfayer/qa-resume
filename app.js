@@ -643,55 +643,44 @@ function initTerminalRunner() {
   });
 }
 
-// --- Interactive Background Constellation Canvas ---
+// --- Nova-style Constellation & Geometric Mesh Canvas Engine ---
 function initBackgroundCanvas() {
   const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
   let width = 0;
   let height = 0;
 
   function resizeCanvas() {
-    width = window.innerWidth || document.documentElement.clientWidth || 1200;
-    height = window.innerHeight || document.documentElement.clientHeight || 800;
-    
-    // Set internal resolution directly matching CSS pixels for universal 1:1 crisp rendering
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    width = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1200;
+    height = canvas.height = window.innerHeight || document.documentElement.clientHeight || 800;
   }
 
   resizeCanvas();
 
-  // Adaptive particle count based on screen size
-  const isMobile = width < 768;
-  const particleCount = isMobile ? 32 : 65;
-  const maxDistance = isMobile ? 100 : 145;
-  const mouseRadius = isMobile ? 120 : 180;
+  const isMobile = window.innerWidth < 768;
+  const numNodes = isMobile ? 38 : 75;
 
-  const mouse = {
-    x: null,
-    y: null
-  };
+  let mouse = { x: -1000, y: -1000, speed: 0 };
+  let lastMouse = { x: -1000, y: -1000 };
+  let mouseConnectionStrength = 0;
 
-  const updateMouse = (clientX, clientY) => {
+  const handlePointerMove = (clientX, clientY) => {
     mouse.x = clientX;
     mouse.y = clientY;
   };
 
-  window.addEventListener('mousemove', (e) => updateMouse(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('mousemove', (e) => handlePointerMove(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('mouseout', () => { mouse.x = -1000; mouse.y = -1000; });
   window.addEventListener('touchmove', (e) => {
     if (e.touches && e.touches[0]) {
-      updateMouse(e.touches[0].clientX, e.touches[0].clientY);
+      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
     }
   }, { passive: true });
-
-  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-  window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('touchend', () => { mouse.x = -1000; mouse.y = -1000; });
 
   let resizeTimeout;
   window.addEventListener('resize', () => {
@@ -701,123 +690,241 @@ function initBackgroundCanvas() {
     }, 100);
   });
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.65;
-      this.vy = (Math.random() - 0.5) * 0.65;
-      this.radius = Math.random() * 1.8 + 1.2;
-      // Assign QA-themed accent colors (Emerald, Cyan, Indigo)
-      const colorTypes = ['emerald', 'cyan', 'indigo'];
-      this.colorType = colorTypes[Math.floor(Math.random() * colorTypes.length)];
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      // Bounce at screen edges
-      if (this.x < 0 || this.x > width) this.vx *= -1;
-      if (this.y < 0 || this.y > height) this.vy *= -1;
-
-      // Soft mouse interaction (gentle attraction / repulse)
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < mouseRadius && dist > 1) {
-          const force = (mouseRadius - dist) / mouseRadius;
-          const forceDirX = dx / dist;
-          const forceDirY = dy / dist;
-          // Gentle attraction towards cursor
-          this.x += forceDirX * force * 0.85;
-          this.y += forceDirY * force * 0.85;
-        }
-      }
-    }
-
-    draw(theme) {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-
-      const isDark = theme === 'dark';
-      if (this.colorType === 'emerald') {
-        ctx.fillStyle = isDark ? 'rgba(16, 185, 129, 0.75)' : 'rgba(5, 150, 105, 0.6)';
-      } else if (this.colorType === 'cyan') {
-        ctx.fillStyle = isDark ? 'rgba(6, 182, 212, 0.75)' : 'rgba(8, 145, 178, 0.6)';
-      } else {
-        ctx.fillStyle = isDark ? 'rgba(99, 102, 241, 0.75)' : 'rgba(79, 70, 229, 0.6)';
-      }
-      ctx.fill();
-    }
+  const nodes = [];
+  for (let i = 0; i < numNodes; i++) {
+    const speedMult = Math.random() * 1.1 + 0.25;
+    const n = {
+      id: i,
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * speedMult,
+      vy: (Math.random() - 0.5) * speedMult,
+      baseVx: 0,
+      baseVy: 0,
+      radius: Math.random() * 1.5 + 0.6,
+      phase: Math.random() * Math.PI * 2,
+      mass: Math.random() * 2 + 0.5,
+      linksCount: 0
+    };
+    n.baseVx = n.vx;
+    n.baseVy = n.vy;
+    nodes.push(n);
   }
 
-  const particles = Array.from({ length: particleCount }, () => new Particle());
-
+  let lockedNodes = [];
+  let time = 0;
+  let networkLinks = [];
+  const linkKeys = new Set();
+  const pairKey = (a, b) => (a < b ? a * numNodes + b : b * numNodes + a);
+  let running = false;
   let animationFrameId = null;
 
-  function render() {
+  function animate() {
     ctx.clearRect(0, 0, width, height);
+    time = Date.now() * 0.0015;
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-    // 1. Update and draw nodes
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw(isDark ? 'dark' : 'light');
+    // Mouse speed & smooth connection strength
+    if (lastMouse.x !== -1000 && mouse.x !== -1000) {
+      const dx = mouse.x - lastMouse.x;
+      const dy = mouse.y - lastMouse.y;
+      mouse.speed = Math.sqrt(dx * dx + dy * dy);
     }
+    lastMouse.x = mouse.x;
+    lastMouse.y = mouse.y;
 
-    // 2. Draw connecting lines between close particles
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+    if (mouse.speed < 2.0) {
+      mouseConnectionStrength += 0.02;
+    } else if (mouse.speed > 5.0) {
+      mouseConnectionStrength -= 0.1;
+    }
+    mouseConnectionStrength = Math.max(0, Math.min(1, mouseConnectionStrength));
 
-        if (dist < maxDistance) {
-          const alpha = (1 - dist / maxDistance) * (isDark ? 0.22 : 0.14);
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = isDark ? `rgba(16, 185, 129, ${alpha})` : `rgba(5, 150, 105, ${alpha})`;
-          ctx.lineWidth = 0.85;
-          ctx.stroke();
-        }
-      }
+    nodes.forEach(n => n.linksCount = 0);
+    networkLinks.forEach(l => { l.n1.linksCount++; l.n2.linksCount++; });
 
-      // Connect to mouse cursor
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - particles[i].x;
-        const dy = mouse.y - particles[i].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < mouseRadius) {
-          const alpha = (1 - dist / mouseRadius) * (isDark ? 0.38 : 0.25);
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = isDark ? `rgba(6, 182, 212, ${alpha})` : `rgba(8, 145, 178, ${alpha})`;
-          ctx.lineWidth = 1.1;
-          ctx.stroke();
-        }
+    // Link formation with random break distance
+    for (let i = 0; i < numNodes; i++) {
+      for (let j = i + 1; j < numNodes; j++) {
+        const distSq = (nodes[i].x - nodes[j].x) ** 2 + (nodes[i].y - nodes[j].y) ** 2;
+        if (distSq >= 125 ** 2) continue;
+        const key = i * numNodes + j;
+        if (linkKeys.has(key)) continue;
+        linkKeys.add(key);
+        networkLinks.push({
+          n1: nodes[i],
+          n2: nodes[j],
+          key: key,
+          breakDist: 125 + Math.random() * 210,
+          age: 0
+        });
       }
     }
 
-    animationFrameId = requestAnimationFrame(render);
+    networkLinks = networkLinks.filter(l => {
+      l.age++;
+      const distSq = (l.n1.x - l.n2.x) ** 2 + (l.n1.y - l.n2.y) ** 2;
+      if (distSq < l.breakDist ** 2) return true;
+      linkKeys.delete(l.key);
+      return false;
+    });
+
+    // Orbit capture around mouse
+    if (mouse.x > 0 && mouse.y > 0) {
+      lockedNodes = lockedNodes.filter(item => {
+        const d = Math.sqrt((mouse.x - item.node.x) ** 2 + (mouse.y - item.node.y) ** 2);
+        return d < 300;
+      });
+
+      if (lockedNodes.length < 3) {
+        const sortedNodes = nodes
+          .map(n => ({
+            node: n,
+            dist: Math.sqrt((mouse.x - n.x) ** 2 + (mouse.y - n.y) ** 2)
+          }))
+          .filter(item => !lockedNodes.find(locked => locked.node === item.node))
+          .sort((a, b) => a.dist - b.dist);
+
+        while (lockedNodes.length < 3 && sortedNodes.length > 0) {
+          const nextNearest = sortedNodes.shift();
+          if (nextNearest.dist < 200) {
+            lockedNodes.push({ node: nextNearest.node });
+          } else {
+            break;
+          }
+        }
+      }
+    } else {
+      lockedNodes = [];
+    }
+
+    // Node physics update
+    nodes.forEach(n => {
+      const isLocked = lockedNodes.find(item => item.node === n);
+      if (!isLocked || mouseConnectionStrength === 0) {
+        n.vx += (n.baseVx - n.vx) * 0.05;
+        n.vy += (n.baseVy - n.vy) * 0.05;
+      }
+
+      n.x += n.vx;
+      n.y += n.vy;
+
+      if (n.x < 0) { n.x = 0; n.vx *= -1; n.baseVx *= -1; }
+      if (n.x > width) { n.x = width; n.vx *= -1; n.baseVx *= -1; }
+      if (n.y < 0) { n.y = 0; n.vy *= -1; n.baseVy *= -1; }
+      if (n.y > height) { n.y = height; n.vy *= -1; n.baseVy *= -1; }
+    });
+
+    // 1. Draw connecting lines with organic pulse
+    ctx.lineWidth = 1.15;
+    networkLinks.forEach(link => {
+      const d1 = (link.n1.x - link.n2.x) ** 2 + (link.n1.y - link.n2.y) ** 2;
+      const pulseLine = (Math.sin(time + link.n1.phase) + Math.sin(time + link.n2.phase) + 2) / 4;
+      const alpha = Math.max(0, (1 - Math.sqrt(d1) / link.breakDist) * pulseLine * (isDark ? 0.75 : 0.45));
+
+      // Emerald / Cyan / Purple cosmic gradient tone
+      ctx.strokeStyle = isDark
+        ? `rgba(16, 185, 129, ${alpha})`
+        : `rgba(5, 150, 105, ${alpha})`;
+      ctx.beginPath();
+      ctx.moveTo(link.n1.x, link.n1.y);
+      ctx.lineTo(link.n2.x, link.n2.y);
+      ctx.stroke();
+    });
+
+    // 2. Draw geometric triangles (faces) between interconnected triplets
+    for (let i = 0; i < networkLinks.length; i++) {
+      const l1 = networkLinks[i];
+      for (let j = i + 1; j < networkLinks.length; j++) {
+        const l2 = networkLinks[j];
+        let shared = null;
+        let u1, u2;
+        if (l1.n1 === l2.n1) { shared = l1.n1; u1 = l1.n2; u2 = l2.n2; }
+        else if (l1.n1 === l2.n2) { shared = l1.n1; u1 = l1.n2; u2 = l2.n1; }
+        else if (l1.n2 === l2.n1) { shared = l1.n2; u1 = l1.n1; u2 = l2.n2; }
+        else if (l1.n2 === l2.n2) { shared = l1.n2; u1 = l1.n1; u2 = l2.n1; }
+
+        if (shared && u1.id > shared.id && u2.id > shared.id && linkKeys.has(pairKey(u1.id, u2.id))) {
+          const pulseFace = Math.sin(time + shared.phase + u1.phase + u2.phase);
+          if (pulseFace > 0.35) {
+            const alpha = (pulseFace - 0.35) * (isDark ? 0.22 : 0.12);
+            ctx.fillStyle = isDark
+              ? `rgba(6, 182, 212, ${alpha})`
+              : `rgba(8, 145, 178, ${alpha})`;
+            ctx.beginPath();
+            ctx.moveTo(shared.x, shared.y);
+            ctx.lineTo(u1.x, u1.y);
+            ctx.lineTo(u2.x, u2.y);
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    // 3. Draw mouse gravitational orbit lines and forces
+    lockedNodes.forEach((item, index) => {
+      const n = item.node;
+      const dist = Math.sqrt((mouse.x - n.x) ** 2 + (mouse.y - n.y) ** 2);
+      const targetDist = 50 + index * 40;
+
+      if (mouseConnectionStrength > 0) {
+        ctx.beginPath();
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(n.x, n.y);
+        const alpha = Math.max(0, 1 - dist / 300) * 0.55 * mouseConnectionStrength;
+        ctx.strokeStyle = isDark
+          ? `rgba(99, 102, 241, ${alpha})`
+          : `rgba(79, 70, 229, ${alpha})`;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        if (dist > 0) {
+          const dx = n.x - mouse.x;
+          const dy = n.y - mouse.y;
+          const angle = Math.atan2(dy, dx);
+          const orbitAngle = angle + (Math.PI / 2);
+          const radialForce = (targetDist - dist) * 0.05 * mouseConnectionStrength;
+          let orbitSpeed = 0.45 * mouseConnectionStrength;
+          if (index === 1) orbitSpeed = -0.45 * mouseConnectionStrength;
+
+          const targetVx = Math.cos(orbitAngle) * orbitSpeed + Math.cos(angle) * radialForce;
+          const targetVy = Math.sin(orbitAngle) * orbitSpeed + Math.sin(angle) * radialForce;
+          n.vx += (targetVx - n.vx) * 0.08 * mouseConnectionStrength;
+          n.vy += (targetVy - n.vy) * 0.08 * mouseConnectionStrength;
+        }
+      }
+    });
+
+    // 4. Draw glowing nodes
+    nodes.forEach(n => {
+      const drawRad = n.mass ? n.radius * (n.mass * 0.8) : n.radius;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, drawRad, 0, Math.PI * 2);
+      ctx.fillStyle = isDark ? '#e6edf3' : '#1e293b';
+      ctx.fill();
+    });
+
+    animationFrameId = requestAnimationFrame(animate);
   }
 
-  // Handle visibility change so inactive tabs don't waste CPU and restart cleanly when focused
+  function start() {
+    if (running) return;
+    running = true;
+    animationFrameId = requestAnimationFrame(animate);
+  }
+
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      running = false;
     } else {
-      animationFrameId = requestAnimationFrame(render);
+      start();
     }
   });
 
-  render();
+  start();
 }
 
 
